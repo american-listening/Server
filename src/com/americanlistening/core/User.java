@@ -14,7 +14,7 @@ import java.util.Objects;
  * @since 1.0
  */
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = -7865197532288114685L;
 
 	/**
@@ -28,9 +28,19 @@ public class User implements Serializable {
 	}
 
 	/**
-	 * Updates a user's values according to a set of paramaters.
+	 * Returns the name of a profile attribute.
 	 * 
-	 * @param user The user to update.
+	 * @param attrib The profile attribute.
+	 * @return Its name.
+	 */
+	public static String nameOf(ProfileAttribute attrib) {
+		return attrib.name();
+	}
+
+	/**
+	 * Updates a user's values according to a set of parameters.
+	 * 
+	 * @param user   The user to update.
 	 * @param params The parameters to use.
 	 */
 	public static void update(User user, Map<String, String> params) {
@@ -39,7 +49,7 @@ public class User implements Serializable {
 		user.email = Objects.requireNonNull(params.get(USERNAME.name()), "Email cannot be null");
 		user.password = Objects.requireNonNull(params.get(PASSWORD.name()), "Password cannot be null");
 	}
-	
+
 	/**
 	 * Creates a map of the user's attributes.
 	 * 
@@ -54,17 +64,17 @@ public class User implements Serializable {
 		map.put(PASSWORD.name(), user.password);
 		return map;
 	}
-	
+
 	// User ID number - bound to an account, cannot be changed
 	private long userID;
-	
+
 	// Public profile attributes
 	public String username; // The screen name a user would like to have
-	
+
 	// Private profile attributes
 	public String email; // The user's email - used for logging in
 	public String password; // The user's password - used for logging in
-	
+
 	/**
 	 * Returns the unique user id for this user.
 	 * 
