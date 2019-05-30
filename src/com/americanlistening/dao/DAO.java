@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import java.lang.reflect.ParameterizedType;
+
 /**
  * Interface for a Data Access Object (DAO).
  * 
@@ -13,7 +15,7 @@ import java.util.Optional;
  * @param <T> The type of object.
  */
 public interface DAO<T> {
-
+	
 	/**
 	 * Gets data object with by its id.
 	 * 

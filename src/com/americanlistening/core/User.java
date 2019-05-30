@@ -2,6 +2,7 @@ package com.americanlistening.core;
 
 import static com.americanlistening.core.User.ProfileAttribute.*;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -12,8 +13,10 @@ import java.util.Objects;
  * @author Ethan Vrhel
  * @since 1.0
  */
-public class User {
+public class User implements Serializable {
 	
+	private static final long serialVersionUID = -7865197532288114685L;
+
 	/**
 	 * Type defining a certain profile attribute.
 	 * 
