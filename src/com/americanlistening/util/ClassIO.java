@@ -82,19 +82,13 @@ public class ClassIO {
 	/**
 	 * Loads an object from a string.
 	 * 
-	 * @param data  The data to load from.
-	 * @param check The class to check against the loaded object to see if the
-	 *              loaded object is an instance of that class. This can be
-	 *              <code>null</code>.
-	 * @return The loaded object, or <code>null</code> if the object is not an
-	 *         instance of <code>check</code> and <code>check</code> is not
-	 *         <code>null</code>.
+	 * @param data The data to load from.
+	 * @return The loaded object.
 	 * @throws IOException            When an I/O error occurs.
 	 * @throws ClassNotFoundException When the class contained in <code>data</code>
 	 *                                does not exist.
 	 */
-	public static Object load(String data, Class<? extends Serializable> check)
-			throws IOException, ClassNotFoundException {
+	public static Object load(String data) throws IOException, ClassNotFoundException {
 		ByteArrayInputStream sin = null;
 		ObjectInputStream oin = null;
 		Object ret = null;
@@ -102,8 +96,6 @@ public class ClassIO {
 			sin = new ByteArrayInputStream(data.getBytes());
 			oin = new ObjectInputStream(sin);
 			ret = oin.readObject();
-			if (ret.getClass() != check && check != null)
-				return null;
 		} finally {
 			if (sin != null)
 				sin.close();
@@ -111,5 +103,25 @@ public class ClassIO {
 				oin.close();
 		}
 		return ret;
+	}
+
+	/**
+	 * Loads an object from a string and casts it to the desired cast.
+	 * 
+	 * @param <T>  The type to cast to.
+	 * @param data The data to load from.
+	 * @param cast The class to cast to.
+	 * @return The loaded object, or <code>null</code> if the object cannot be
+	 *         casted.
+	 * @throws IOException            When an I/O error occurs.
+	 * @throws ClassNotFoundException When the class contained in <code>data</code>
+	 *                                does not exist.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T load(String data, Class<T> cast) throws ClassNotFoundException, IOException {
+		Object loaded = load(data);
+		if (loaded.getClass() == cast)
+			return (T) loaded;
+		return null;
 	}
 }

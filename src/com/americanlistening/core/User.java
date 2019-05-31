@@ -49,7 +49,7 @@ public class User implements Serializable {
 		user.email = Objects.requireNonNull(params.get(USERNAME.name()), "Email cannot be null");
 		user.password = Objects.requireNonNull(params.get(PASSWORD.name()), "Password cannot be null");
 	}
-
+	
 	/**
 	 * Creates a map of the user's attributes.
 	 * 
