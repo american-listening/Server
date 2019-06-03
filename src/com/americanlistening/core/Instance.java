@@ -48,14 +48,17 @@ public class Instance {
 	private InstanceMain main;
 	private List<DAO<?>> daos;
 
+	private Map<Long, User> users;
+
 	private Instance() {
 		this.daos = new ArrayList<>();
 		this.config = new HashMap<>();
+		this.users = new HashMap<>();
 		loadConfig();
 		this.main = locateInstanceMain();
 		this.main.main(this);
 	}
-	
+
 	/**
 	 * Returns the name of this instance.
 	 * 
@@ -94,6 +97,29 @@ public class Instance {
 		}
 		return null;
 	}
+	
+	public User registerUser(UserCreateInfo cinf) throws RegistrationException {
+		throw new UnsupportedOperationException("Not supported yet!");
+	}
+
+	/**
+	 * Returns all users on the platform.
+	 * 
+	 * @return All users.
+	 */
+	public User[] allUsers() {
+		return users.values().toArray(new User[users.size()]);
+	}
+
+	/**
+	 * Returns the user by its id.
+	 * 
+	 * @param id The user id.
+	 * @return The respective user, or <code>null</code> if it does not exist.
+	 */
+	public User getUser(long id) {
+		return users.get(id);
+	}
 
 	private void loadConfig() {
 		File f = new File(INSTANCE_CONFIGURATION);
@@ -102,7 +128,7 @@ public class Instance {
 		FileInputStream fin = null;
 		try {
 			fin = new FileInputStream(f);
-			byte[] b = new byte[(int)f.length()];
+			byte[] b = new byte[(int) f.length()];
 			fin.read(b, 0, b.length);
 			String str = new String(b);
 			String[] tokens0 = str.split("\n");
