@@ -2,6 +2,7 @@ package com.americanlistening.core;
 
 import static com.americanlistening.core.User.ProfileAttribute.*;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -12,8 +13,10 @@ import java.util.Objects;
  * @author Ethan Vrhel
  * @since 1.0
  */
-public class User {
-	
+public class User implements Serializable {
+
+	private static final long serialVersionUID = -7865197532288114685L;
+
 	/**
 	 * Type defining a certain profile attribute.
 	 * 
@@ -25,9 +28,19 @@ public class User {
 	}
 
 	/**
-	 * Updates a user's values according to a set of paramaters.
+	 * Returns the name of a profile attribute.
 	 * 
-	 * @param user The user to update.
+	 * @param attrib The profile attribute.
+	 * @return Its name.
+	 */
+	public static String nameOf(ProfileAttribute attrib) {
+		return attrib.name();
+	}
+
+	/**
+	 * Updates a user's values according to a set of parameters.
+	 * 
+	 * @param user   The user to update.
 	 * @param params The parameters to use.
 	 */
 	public static void update(User user, Map<String, String> params) {
@@ -51,17 +64,17 @@ public class User {
 		map.put(PASSWORD.name(), user.password);
 		return map;
 	}
-	
+
 	// User ID number - bound to an account, cannot be changed
 	private long userID;
-	
+
 	// Public profile attributes
 	public String username; // The screen name a user would like to have
-	
+
 	// Private profile attributes
 	public String email; // The user's email - used for logging in
 	public String password; // The user's password - used for logging in
-	
+
 	/**
 	 * Returns the unique user id for this user.
 	 * 
