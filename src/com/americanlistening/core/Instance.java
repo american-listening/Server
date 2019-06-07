@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,9 +98,30 @@ public class Instance {
 		}
 		return null;
 	}
-	
+
+	/**
+	 * Registers a new user on the server.
+	 * 
+	 * @param cinf The creation info for the user.
+	 * @return The new user.
+	 * @throws RegistrationException When an error occurs while registering the
+	 *                               user.
+	 */
 	public User registerUser(UserCreateInfo cinf) throws RegistrationException {
-		throw new UnsupportedOperationException("Not supported yet!");
+		long id = -1L;
+		try {
+			id = generateID();
+		} catch (RuntimeException e) {
+			throw new RegistrationException("No valid user ID", e);
+		}
+		User user = new User(id);
+		user.username = cinf.username;
+		user.password = cinf.password;
+		user.email = cinf.email;
+		if (!userValid(user))
+			throw new RegistrationException("User has values that match existing users.");
+		users.put(user.getUserID(), user);
+		return user;
 	}
 
 	/**
@@ -119,6 +141,20 @@ public class Instance {
 	 */
 	public User getUser(long id) {
 		return users.get(id);
+	}
+
+	/**
+	 * Returns the user by its username.
+	 * 
+	 * @param username The username.
+	 * @return The respective user, or <code>null</code> if it does not exist.F
+	 */
+	public User getUser(String username) {
+		for (User user : users.values()) {
+			if (user.username.equalsIgnoreCase(username))
+				return user;
+		}
+		return null;
 	}
 
 	private void loadConfig() {
@@ -179,5 +215,32 @@ public class Instance {
 		} catch (ClassNotFoundException e) {
 			throw new Error("Class \"" + cpath + "\" does not exist in the current context.", e);
 		}
+	}
+
+	private boolean userValid(User test) {
+		for (User user : users.values()) {
+			if (User.isConflicting(user, test))
+				return false;
+		}
+		return true;
+	}
+
+	private Long generateID() throws RuntimeException {
+		// TODO: Optimize generation (currently will be very slow with many users)
+		Collection<User> users = this.users.values();
+		long currentIteration = 1L;
+		boolean notfound = true;
+		search0: while (notfound) {
+			if (currentIteration == Long.MAX_VALUE)
+				throw new RuntimeException("No values avaliable.");
+			for (User user : users) {
+				if (currentIteration == user.getUserID()) {
+					currentIteration++;
+					continue search0;
+				}
+			}
+			notfound = true;
+		}
+		return currentIteration;
 	}
 }
