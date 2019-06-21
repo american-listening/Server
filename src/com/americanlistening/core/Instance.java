@@ -1,5 +1,7 @@
 package com.americanlistening.core;
 
+import static com.americanlistening.core.DataRequest.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -57,9 +59,9 @@ public class Instance {
 		this.daos = new ArrayList<>();
 		this.config = new HashMap<>();
 		this.users = new HashMap<>();
-		loadConfig();
-		this.main = locateInstanceMain();
-		this.main.main(this);
+		//loadConfig();
+		//this.main = locateInstanceMain();
+		//this.main.main(this);
 	}
 
 	/**
@@ -158,6 +160,21 @@ public class Instance {
 		}
 		return null;
 	}
+	
+	public String getData(DataRequest request) {
+		System.out.println(request);
+		switch (request.requestType) {
+		case USER_PARAM_REQUEST:
+			long userID = Long.parseLong(request.params[0]);
+			User user = getUser(userID);
+			System.out.println(user);
+			if (user == null)
+				break;
+			Map<String, String> map = User.attributeMapOf(user);
+			return map.get(request.params[1]);
+		}
+		return null;
+	}
 
 	/**
 	 * Returns the creation parameters that will be used when registering a user.
@@ -246,6 +263,8 @@ public class Instance {
 	}
 
 	private Long generateID() throws RuntimeException {
+		if (true)
+			return 1L;
 		// TODO: Optimize generation (currently will be very slow with many users)
 		Collection<User> users = this.users.values();
 		long currentIteration = 1L;
