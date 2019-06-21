@@ -21,7 +21,7 @@ public class Instance {
 	/**
 	 * File path of the instance configuration.
 	 */
-	public static final String INSTANCE_CONFIGURATION = "instance.config";
+	public static final String INSTANCE_CONFIGURATION = "D:\\Ethan\\jee-workspace\\AmericanListening\\instance.config";
 
 	/**
 	 * The current instance.
@@ -50,6 +50,8 @@ public class Instance {
 	private List<DAO<?>> daos;
 
 	private Map<Long, User> users;
+
+	private CreationParameters params;
 
 	private Instance() {
 		this.daos = new ArrayList<>();
@@ -157,6 +159,24 @@ public class Instance {
 		return null;
 	}
 
+	/**
+	 * Returns the creation parameters that will be used when registering a user.
+	 * 
+	 * @return The creation parameters.
+	 */
+	public CreationParameters getCreationParameters() {
+		return params;
+	}
+
+	/**
+	 * Sets the parameters that will be used when a user tries to register.
+	 * 
+	 * @param params The creation parameters.
+	 */
+	public void setCreationParameters(CreationParameters params) {
+		this.params = params;
+	}
+
 	private void loadConfig() {
 		File f = new File(INSTANCE_CONFIGURATION);
 		if (!f.exists())
@@ -192,7 +212,7 @@ public class Instance {
 	private InstanceMain locateInstanceMain() {
 		String cpath = config.get("main");
 		if (cpath == null)
-			throw new Error("No valid keyvalue pair found for key \"" + main + "\"");
+			throw new Error("No valid keyvalue pair found for key \"main\"");
 		try {
 			Class<?> c = Class.forName(cpath, true, ClassLoader.getSystemClassLoader());
 			Class<?>[] ints = c.getInterfaces();

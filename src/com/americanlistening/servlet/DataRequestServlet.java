@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/DataRequestServlet")
 public class DataRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

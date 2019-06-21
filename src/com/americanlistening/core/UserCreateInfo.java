@@ -8,8 +8,8 @@ package com.americanlistening.core;
  */
 public class UserCreateInfo {
 
-	public String username;
-	public String email;
-	public String password;
+	public String username; // username
+	public String email; // email
+	public String password; // password
 
 }
