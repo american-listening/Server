@@ -101,7 +101,7 @@ public class ClassIO {
 				sin.close();
 			if (oin != null)
 				oin.close();
-		}
+		}		
 		return ret;
 	}
 

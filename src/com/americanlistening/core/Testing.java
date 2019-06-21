@@ -17,13 +17,13 @@ public class Testing implements Serializable {
 	public static DAO<User> userDAO = new UserDAO();
 	
 	static {
-		User user = new User();
+		User user = new User(0L);
 		user.email = "someone@domain.com";
 		user.username = "username";
 		user.password = "password";
 		userDAO.save(user);
 		
-		user = new User();
+		user = new User(1L);
 		user.email = "someone2@domain.com";
 		user.username = "abosh";
 		user.password = "dumb1234";
