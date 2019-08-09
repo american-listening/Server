@@ -13,16 +13,17 @@ import java.lang.reflect.ParameterizedType;
  * @since 1.0
  *
  * @param <T> The type of object.
+ * @param <K> The key to use when getting objects.
  */
-public interface DAO<T> {
+public interface DAO<T, K> {
 	
 	/**
 	 * Gets data object with by its id.
 	 * 
-	 * @param id The id to use.
+	 * @param key The key to use.
 	 * @return The respective object.
 	 */
-	Optional<T> get(long id);
+	Optional<T> get(K key);
 	
 	/**
 	 * Returns all data objects in this DAO.

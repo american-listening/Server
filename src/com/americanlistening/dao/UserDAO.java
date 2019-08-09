@@ -13,7 +13,7 @@ import com.americanlistening.core.User;
  * @author Ethan Vrhel
  * @since 1.0
  */
-public class UserDAO implements DAO<User> {
+public class UserDAO implements DAO<User, Integer> {
 
 	private List<User> users;
 	
@@ -25,8 +25,8 @@ public class UserDAO implements DAO<User> {
 	}
 	
 	@Override
-	public Optional<User> get(long id) {
-		return Optional.ofNullable(users.get((int) id));
+	public Optional<User> get(Integer id) {
+		return Optional.ofNullable(users.get(id));
 	}
 
 	@Override

@@ -14,7 +14,7 @@ public class Testing implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1563413787817297687L;
-	public static DAO<User> userDAO = new UserDAO();
+	public static DAO<User, Integer> userDAO = new UserDAO();
 	
 	static {
 		User user = new User(0L);

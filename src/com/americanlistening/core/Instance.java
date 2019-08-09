@@ -10,6 +10,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.americanlistening.core.youtube.YouTubeManager;
 import com.americanlistening.dao.DAO;
 
 /**
@@ -49,9 +51,11 @@ public class Instance {
 	private Map<String, String> config;
 
 	private InstanceMain main;
-	private List<DAO<?>> daos;
+	private List<DAO<?, ?>> daos;
 
 	private Map<Long, User> users;
+	
+	private YouTubeManager ytManager;
 
 	private CreationParameters params;
 
@@ -59,9 +63,7 @@ public class Instance {
 		this.daos = new ArrayList<>();
 		this.config = new HashMap<>();
 		this.users = new HashMap<>();
-		//loadConfig();
-		//this.main = locateInstanceMain();
-		//this.main.main(this);
+		ytManager = new YouTubeManager("YouTubeJavaAPITest");
 	}
 
 	/**
@@ -79,7 +81,7 @@ public class Instance {
 	 * 
 	 * @param dao The DAO to add.
 	 */
-	public void addDAO(DAO<?> dao) {
+	public void addDAO(DAO<?, ?> dao) {
 		if (!daos.contains(dao))
 			daos.add(dao);
 		allDAOs();
@@ -90,13 +92,13 @@ public class Instance {
 	 * 
 	 * @return All DAOs.
 	 */
-	public DAO<?>[] allDAOs() {
-		return daos.toArray(new DAO<?>[daos.size()]);
+	public DAO<?, ?>[] allDAOs() {
+		return daos.toArray(new DAO<?, ?>[daos.size()]);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends DAO<?>> T getDAO(Class<T> t) {
-		for (DAO<?> dao : daos) {
+	public <T extends DAO<?, ?>> T getDAO(Class<T> t) {
+		for (DAO<?, ?> dao : daos) {
 			if (dao.getClass() == t)
 				return (T) dao;
 		}
@@ -192,6 +194,15 @@ public class Instance {
 	 */
 	public void setCreationParameters(CreationParameters params) {
 		this.params = params;
+	}
+	
+	/**
+	 * Returns the manager for YouTube videos.
+	 * 
+	 * @return The YouTube manager.
+	 */
+	public YouTubeManager getYouTubeManager() {
+		return ytManager;
 	}
 
 	private void loadConfig() {
