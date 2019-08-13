@@ -14,10 +14,10 @@
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="D:/libraries/java/google/guava-11.0.2.jar"/>
-	<classpathentry kind="lib" path="D:/libraries/java/mail/mail.jar"/>
-	<classpathentry kind="lib" path="D:/libraries/java/youtube/gdata-media-1.0.jar"/>
-	<classpathentry kind="lib" path="D:/libraries/java/youtube/gdata-youtube-2.0.jar"/>
-	<classpathentry kind="lib" path="D:/libraries/java/youtube/gdata-core-1.0.jar"/>
+	<classpathentry kind="lib" path="libraries/java/google/guava-11.0.2.jar"/>
+	<classpathentry kind="lib" path="libraries/java/mail/mail.jar"/>
+	<classpathentry kind="lib" path="libraries/java/youtube/gdata-media-1.0.jar"/>
+	<classpathentry kind="lib" path="libraries/java/youtube/gdata-youtube-2.0.jar"/>
+	<classpathentry kind="lib" path="libraries/java/youtube/gdata-core-1.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
